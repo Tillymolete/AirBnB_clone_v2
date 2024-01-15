@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 """ Place Module for HBNB project """
 from models.base_model import BaseModel, Base
+from models import storage_type
 from sqlalchemy import Column, String, Integer, Float
 from sqlalchemy.orm import ForeignKey
 
@@ -32,4 +33,4 @@ class Place(BaseModel, Base):
         longitude = 0.0
         amenity_ids = []
 
-    
+
