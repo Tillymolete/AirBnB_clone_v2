@@ -1,14 +1,14 @@
 #!/usr/bin/python3
 """ Place Module for HBNB project """
 from models.base_model import BaseModel, Base
-from models import storage_type
+import models
 from sqlalchemy import Column, String, Integer, Float
 from sqlalchemy.orm import ForeignKey
 
 
 class Place(BaseModel, Base):
     """ A place to stay """
-    if storage_type == 'db':
+    if models.storage_type == 'db':
         __tablename__ = 'places'
         city_id = Column(String(60), ForeignKey('cities.id'), nullable=False)
         user_id = Column(String(60), ForeignKey('users.id'), nullable=False)

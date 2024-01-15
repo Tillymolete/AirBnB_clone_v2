@@ -4,7 +4,7 @@ import uuid
 import models
 from datetime import datetime
 from sqlalchemy import Column, String, DateTime
-from sqlalchemy.ex.declarative import declarative_base
+from sqlalchemy.orm import declarative_base
 
 Base = declarative_base()
 
@@ -49,7 +49,7 @@ class BaseModel:
     def to_dict(self):
         """Creates dictionary of the class and return instance into dict format"""
         result = dict(self.__dict__)
-        result["__class__"] = str(type(self).__name__
+        result["__class__"] = str(type(self).__name__)
         result["created_at"] = self.created_at.isoformat()
         result["updated_at"] = self.updated_at.isoformat()
         

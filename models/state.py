@@ -10,18 +10,18 @@ from sqlalchemy.orm import relationship
 
 class State(BaseModel, Base):
     """Represent  class for state"""
-    if models.storage_t = "db":
+    if models.storage_type == "db":
         __tablename__ = 'states'
         name = Column(String(128), nullable=False)
         cities = relationship("City", backref="state")
     else:
         name = ""
         
-        @property
+    @property
     def cities(self):
         """return the list of city instances"""
 
-        cities = lists()
+        cities = list()
 
         for _id, city in models.storage.all(City).items():
             if city.state_id == self.id:

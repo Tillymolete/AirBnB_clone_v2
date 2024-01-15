@@ -14,7 +14,7 @@ class FileStorage:
             dictionary of objects
         """
         if cls:
-            return = {}
+            # return = {}
             for key, value in self.__objects.items():
                 if key.split(' ')[0] == cls.__name__:
                     result[key] = value
