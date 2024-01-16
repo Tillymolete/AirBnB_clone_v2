@@ -10,6 +10,7 @@ from models.city import City
 from models.amenity import Amenity
 from models.review import Review
 
+
 class FileStorage:
     """This class manages storage of hbnb models in JSON format"""
     __file_path = 'file.json'
@@ -33,21 +34,26 @@ class FileStorage:
     def save(self):
         """Serialises objects into JSON"""
         serialized_objects = {k: v.to_dict()
-                for k, v in self.__objects.items()}
+                              for k, v in self.__objects.items()}
+        print(serialized_objects)
         with open(self.__file_path, mode='w', encoding='utf-8') as f:
-            json.dump(temp, f)
+            json.dump(serialized_objects, f)
 
     def reload(self):
-        """Loads storage dictionary from file"""
+        """Reloads instances from JSON file"""
         try:
-            with open(self.__file_path, 'r', encoding="utf-8") as f:
-                for key, value in (json.load(f)).items():
-                    value = eval(value["__class__"])(**value)
-                    self.objecys[key] = value
+            with open(self.__file_path, 'r', encoding='utf-8') as f:
+                data = json.load(f)
+                for key, value in data.items():
+                    class_name = key.split('.')[0]
+                    self.new(eval(class_name)(**value))
         except FileNotFoundError:
             pass
+        except json.decoder.JSONDecodeError:
+            pass
+
     def delete(self, obj=None):
         """deletes an existing element"""
         if obj:
-            key = "{}.{}".format(type(obj).__name, obj.id)
+            key = "{}.{}".format(type(obj).__name__, obj.id)
             del self.__objects[key]

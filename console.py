@@ -130,7 +130,8 @@ class HBNBCommand(cmd.Cmd):
                 try:
                     if value.isdigit() and not value.startswith('000'):
                         value = int(value)
-                    elif '.' in value or value.startswith('0') and '.' in value[1:]:
+                    elif '.' in value or value.startswith('0')\
+                            and '.' in value[1:]:
                         value = float(value)
                     else:
                         value = str(value)
@@ -140,7 +141,7 @@ class HBNBCommand(cmd.Cmd):
         else:
             print("** class doesn't exist **")
             return
-        
+
         print(new_instance.id)
         new_instance.save()
 
