@@ -8,7 +8,7 @@ from sqlalchemy import ForeignKey
 
 class Place(BaseModel, Base):
     """ A place to stay """
-    if models.storage_type == 'db':
+    if models.storage_t == 'db':
         __tablename__ = 'places'
         city_id = Column(String(60), ForeignKey('cities.id'), nullable=False)
         user_id = Column(String(60), ForeignKey('users.id'), nullable=False)

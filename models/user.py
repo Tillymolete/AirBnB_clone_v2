@@ -8,7 +8,7 @@ import models
 class User(BaseModel, Base):
     """This class defines a user by various attributes"""
 
-    if models.storage_type == 'db':
+    if models.storage_t == 'db':
         __tablename__ = 'users'
         email = Column(String(128), nullable=False)
         password = Column(String(128), nullable=False)

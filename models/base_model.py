@@ -12,7 +12,7 @@ Base = declarative_base()
 class BaseModel:
     """This class will define all common attrivutes for other classes"""
 
-    if models.storage_type == "db":
+    if models.storage_t == "db":
         id = Column(String(60), primary_key=True, nullable=False)
         created_at = Column(DateTime, nullable=False, default=datetime.utcnow())
         updated_at = Column(DateTime, nullable=False, default=datetime.utcnow())

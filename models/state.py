@@ -8,7 +8,7 @@ from sqlalchemy.orm import relationship
 
 class State(BaseModel, Base):
     """Represent  class for state"""
-    if models.storage_type == "db":
+    if models.storage_t == "db":
         __tablename__ = 'states'
         name = Column(String(128), nullable=False)
         cities = relationship("City", backref="state")
@@ -24,5 +24,4 @@ class State(BaseModel, Base):
         for _id, city in models.storage.all(City).items():
             if city.state_id == self.id:
                 cities.append(city)
-
         return cities
