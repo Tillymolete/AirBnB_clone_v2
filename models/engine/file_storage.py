@@ -40,16 +40,14 @@ class FileStorage:
             json.dump(serialized_objects, f)
 
     def reload(self):
-        """Reloads instances from JSON file"""
+        """serialize the file path to JSON file path
+        """
         try:
-            with open(self.__file_path, 'r', encoding='utf-8') as f:
-                data = json.load(f)
-                for key, value in data.items():
-                    class_name = key.split('.')[0]
-                    self.new(eval(class_name)(**value))
+            with open(self.__file_path, 'r', encoding="UTF-8") as f:
+                for key, value in (json.load(f)).items():
+                    value = eval(value["__class__"])(**value)
+                    self.__objects[key] = value
         except FileNotFoundError:
-            pass
-        except json.decoder.JSONDecodeError:
             pass
 
     def delete(self, obj=None):
