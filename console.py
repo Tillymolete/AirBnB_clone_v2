@@ -127,14 +127,16 @@ class HBNBCommand(cmd.Cmd):
                 new_list = item.split("=")
                 key = new_list[0]
                 value = new_list[1].replace('"', '').replace('_', ' ')
-
-                if value.isdigit() and not value.startswith('000'):
-                    value = int(value)
-                elif '.' in value or value.startswith('0') and '.' in value[1:]:
-                    value = float(value)
-                else:
-                    value = str(value)
-                setattr(new_instance, key, value)
+                try:
+                    if value.isdigit() and not value.startswith('000'):
+                        value = int(value)
+                    elif '.' in value or value.startswith('0') and '.' in value[1:]:
+                        value = float(value)
+                    else:
+                        value = str(value)
+                    setattr(new_instance, key, value)
+                except:
+                    pass
         else:
             print("** class doesn't exist **")
             return
