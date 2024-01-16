@@ -16,6 +16,7 @@ classes = {
             'State': State, 'City': City, 'Amenity': Amenity,
             'Review': Review}
 
+
 class DBStorage:
     """interacts with a mysql database"""
 
@@ -29,11 +30,11 @@ class DBStorage:
         HBNB_MYSQL_HOST = getenv('HBNB_MYSQL_HOST')
         HBNB_MYSQL_DB = getenv('HBNB_MYSQL_DB')
         HBNB_ENV = getenv('HBNB_ENV')
-        self.__engine = create_engine('mysql+mysqldb://{}:{}@{}/{}'.
-                                        format(HBNB_MYSQL_USER,
-                                                HBNB_MYSQL_PWD,
-                                                HBNB_MYSQL_HOST,
-                                                HBNB_MYSQL_DB))
+        self.__engine = create_engine('mysql+mysqldb://{}:{}@{}/{}'.format(
+            HBNB_MYSQL_USER,
+            HBNB_MYSQL_PWD,
+            HBNB_MYSQL_HOST,
+            HBNB_MYSQL_DB))
         if HBNB_ENV == "test":
             Base.metadata.drop_all(self.__engine)
 
@@ -44,7 +45,7 @@ class DBStorage:
             if cls is None or cls is classes[cls] or cls is cls:
                 objs = self.__session.query(classes[cls]).all()
                 for obj in objs:
-                    key = obj.__class__.__name__ + '.' +obj.id
+                    key = obj.__class__.__name__ + '.' + obj.id
                     result[key] = obj
             return (result)
 
