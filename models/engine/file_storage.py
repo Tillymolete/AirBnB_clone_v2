@@ -19,12 +19,13 @@ class FileStorage:
     def all(self, cls=None):
         """Returns a dictionary of all object or filtered"""
         if cls:
-            result = {}
-            for key, value in self.__objects.items():
-                if key.split('.')[0] == cls.__name__:
-                    result[key] = value
-            return result
-        return self.__objects
+            try:
+                return {k: v for (k, v) in FileStorage.__objects.items()
+                        if cls.__name__ == k.split('.')[0]}
+            except:
+                return {}
+        else:
+            return FileStorage.__objects
 
     def new(self, obj):
         """Adds new object to storage __objects."""
