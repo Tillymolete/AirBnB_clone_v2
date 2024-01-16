@@ -11,8 +11,10 @@ from os import getenv
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, scoped_session
 
-all_classes = {"State", "City", "Amenity", "User", "Place", "Review"}
-
+classes = {
+            'BaseModel': BaseModel, 'User': User, 'Place': Place,
+            'State': State, 'City': City, 'Amenity': Amenity,
+            'Review': Review}
 
 class DBStorage:
     """interacts with a mysql database"""
@@ -39,8 +41,8 @@ class DBStorage:
         """query on the current database session"""
         result = {}
         for cls in classes:
-            if cls is None or cls is classes[clss] or cls is clss:
-                objs = self.__session.query(classes[clss]).all()
+            if cls is None or cls is classes[cls] or cls is cls:
+                objs = self.__session.query(classes[cls]).all()
                 for obj in objs:
                     key = obj.__class__.__name__ + '.' +obj.id
                     result[key] = obj

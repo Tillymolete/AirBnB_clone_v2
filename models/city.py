@@ -1,13 +1,11 @@
 #!/usr/bin/python3
 """ City class for HBNB project """
 import models
-from models.base_model import BaseModel
-from os import getenv
-import sqlalchemy
+from models.base_model import BaseModel, Base
 from sqlalchemy import Column, String, ForeignKey
 from sqlalchemy.orm import relationship
 
-class City(BaseModel):
+class City(BaseModel, Base):
     """ The city class, which represents city """
     if models.storage_type == "db":
         __tablename__ = 'cities'

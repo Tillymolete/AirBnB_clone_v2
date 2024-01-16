@@ -3,7 +3,7 @@
 from models.base_model import BaseModel, Base
 import models
 from sqlalchemy import Column, String, Integer, Float
-from sqlalchemy.orm import ForeignKey
+from sqlalchemy import ForeignKey
 
 
 class Place(BaseModel, Base):

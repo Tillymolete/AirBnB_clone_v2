@@ -121,7 +121,7 @@ class HBNBCommand(cmd.Cmd):
         try:
             if not args:
                 raise SyntaxError()
-            commands  = args.spplit(" ")
+            commands  = args.split(" ")
             obj = eval("{}()".format(commands[0]))
             for param in commands[1:]:
                 if "=" not in param:

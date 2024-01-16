@@ -14,7 +14,7 @@ class FileStorage:
             dictionary of objects
         """
         if cls:
-            # return = {}
+            result = {}
             for key, value in self.__objects.items():
                 if key.split(' ')[0] == cls.__name__:
                     result[key] = value
@@ -47,8 +47,7 @@ class FileStorage:
         classes = {
                     'BaseModel': BaseModel, 'User': User, 'Place': Place,
                     'State': State, 'City': City, 'Amenity': Amenity,
-                    'Review': Review
-                  }
+                    'Review': Review}
         try:
             temp = {}
             with open(FileStorage.__file_path, 'r') as f:
@@ -61,7 +60,7 @@ class FileStorage:
         """deletes an object from __objects if its inside"""
         if obj != None:
             delete_obj = self.all(obj.__class__)
-            for key, value in  delete_obj.items(0):
+            for key, value in delete_obj.items():
                 if obj is value:
                     del self.__objects[key]
             self.save()
