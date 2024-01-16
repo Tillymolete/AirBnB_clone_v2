@@ -141,7 +141,7 @@ class HBNBCommand(cmd.Cmd):
         
         print(new_instance.id)
         models.storage.new(new_instance)
-        # new_instance.save()
+        new_instance.save()
 
     def help_create(self):
         """ Help information for the create method """
