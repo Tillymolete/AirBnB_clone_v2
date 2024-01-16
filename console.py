@@ -10,6 +10,7 @@ from models.state import State
 from models.city import City
 from models.amenity import Amenity
 from models.review import Review
+import models
 
 
 class HBNBCommand(cmd.Cmd):
@@ -114,37 +115,33 @@ class HBNBCommand(cmd.Cmd):
         pass
 
     def do_create(self, args):
-        """ Create an object of any class
-            Exceptions:
-                SyntaxError: when no arguement is given
-                NameError: when no object with the given name is found"""
-        try:
-            if not args:
-                raise SyntaxError()
-            commands = args.split(" ")
-            obj = eval("{}()".format(commands[0]))
-            for param in commands[1:]:
-                if "=" not in param:
-                    continue
-                key, value = param.split("=")
-                value = eval(value)
-                if type(value) not in {str, int, float}:
-                    continue
-                if type(value) is str:
-                    value == value.replace("_", " ")
-                    setattr(obj, key, value)
-            obj.save()
-            print("{}".format(obj.id))
-        except SyntaxError:
+        """ Create an object of any class"""
+        args_list = args.split(" ")
+        if len(args) == 0:
             print("** class name missing **")
             return
-        except NameError:
-            print("** class doesn't exist **")
+        elif args_list[0] in HBNBCommand.classes.keys():
+            new_instance = HBNBCommand.classes[args_list[0]]()
 
-        new_instance = HBNBCommand.classes[args]()
-        storage.save()
+            for item in args_list[1:]:
+                new_list = item.split("=")
+                key = new_list[0]
+                value = new_list[1].replace('"', '').replace('_', ' ')
+
+                if value.isdigit() and not value.startswith('000'):
+                    value = int(value)
+                elif '.' in value or value.startswith('0') and '.' in value[1:]:
+                    value = float(value)
+                else:
+                    value = str(value)
+                setattr(new_instance, key, value)
+        else:
+            print("** class doesn't exist **")
+            return
+        
         print(new_instance.id)
-        storage.save()
+        models.storage.new(new_instance)
+        # new_instance.save()
 
     def help_create(self):
         """ Help information for the create method """
@@ -226,11 +223,11 @@ class HBNBCommand(cmd.Cmd):
             if args not in HBNBCommand.classes:
                 print("** class doesn't exist **")
                 return
-            for k, v in storage._FileStorage__objects.items():
+            for k, v in storage.all().items():
                 if k.split('.')[0] == args:
                     print_list.append(str(v))
         else:
-            for k, v in storage._FileStorage__objects.items():
+            for k, v in storage.all().items():
                 print_list.append(str(v))
 
         print(print_list)
