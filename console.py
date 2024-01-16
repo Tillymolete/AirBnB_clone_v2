@@ -121,7 +121,7 @@ class HBNBCommand(cmd.Cmd):
         try:
             if not args:
                 raise SyntaxError()
-            commands  = args.split(" ")
+            commands = args.split(" ")
             obj = eval("{}()".format(commands[0]))
             for param in commands[1:]:
                 if "=" not in param:
@@ -130,7 +130,7 @@ class HBNBCommand(cmd.Cmd):
                 value = eval(value)
                 if type(value) not in {str, int, float}:
                     continue
-                if type(value) == str:
+                if type(value) is str:
                     value == value.replace("_", " ")
                     setattr(obj, key, value)
             obj.save()
@@ -139,12 +139,12 @@ class HBNBCommand(cmd.Cmd):
             print("** class name missing **")
             return
         except NameError:
-                print("** class doesn't exist **")
+            print("** class doesn't exist **")
 
-        # new_instance = HBNBCommand.classes[args]()
-        # storage.save()
-        # print(new_instance.id)
-        # storage.save()
+        new_instance = HBNBCommand.classes[args]()
+        storage.save()
+        print(new_instance.id)
+        storage.save()
 
     def help_create(self):
         """ Help information for the create method """
@@ -207,7 +207,7 @@ class HBNBCommand(cmd.Cmd):
         key = c_name + "." + c_id
 
         try:
-            del(storage.all()[key])
+            del (storage.all()[key])
             storage.save()
         except KeyError:
             print("** no instance found **")
@@ -339,6 +339,7 @@ class HBNBCommand(cmd.Cmd):
         """ Help information for the update class """
         print("Updates an object with new information")
         print("Usage: update <className> <id> <attName> <attVal>\n")
+
 
 if __name__ == "__main__":
     HBNBCommand().cmdloop()

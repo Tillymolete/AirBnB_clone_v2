@@ -14,8 +14,10 @@ class BaseModel:
 
     if models.storage_t == "db":
         id = Column(String(60), primary_key=True, nullable=False)
-        created_at = Column(DateTime, nullable=False, default=datetime.utcnow())
-        updated_at = Column(DateTime, nullable=False, default=datetime.utcnow())
+        created_at = Column(DateTime, nullable=False,
+                            default=datetime.utcnow())
+        updated_at = Column(DateTime, nullable=False,
+                            default=datetime.utcnow())
 
     def __init__(self, *args, **kwargs):
         """Initializes a base model"""
@@ -47,7 +49,8 @@ class BaseModel:
         models.storage.save()
 
     def to_dict(self):
-        """Creates dictionary of the class and return instance into dict format"""
+        """Creates dictionary of the class and
+        return instance into dict format"""
         result = dict(self.__dict__)
         result["__class__"] = str(type(self).__name__)
         if "created_at" in result:
