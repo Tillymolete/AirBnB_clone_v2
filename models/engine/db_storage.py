@@ -27,7 +27,7 @@ class DBStorage:
                     getenv("HBNB_ENV")),
                 pool_pre_ping=True)
 
-        if env('HBNB_ENV') == 'test':
+        if getenv('HBNB_ENV') == 'test':
             Base.metadata.drop_all(self.__engine)
 
     def all(self, cls=None):
@@ -42,12 +42,12 @@ class DBStorage:
                     key = "{].{}".format(type(elem).__name__, elem.id)
                     objects[key] = elem
         else:
-            lists = [State, City, user, Place, Review, amenity]
+            lists = [State, City, User, Place, Review, Amenity]
             for clase in lists:
                 query = self.__session.query(clase)
                 for elem in query:
                     key = "{}.{]".format(type(elem).__name__, elem.id)
-                    objects[key] = obj
+                    objects[key] = elem
 
         return (objects)
 
